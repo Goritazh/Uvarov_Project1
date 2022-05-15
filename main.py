@@ -14,7 +14,6 @@ def field():
         res += str(i) + "\n"
     print(res)
 
-
 # чтение .ini файла
 
 
