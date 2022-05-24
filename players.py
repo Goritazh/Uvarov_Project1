@@ -1,11 +1,13 @@
-#
+# импорты
 from configparser import ConfigParser
 
 PLAYERS = {}
 PLAYER = tuple()
+
 SAVES = {}
 
 
+# опишите функцию: что она делает?
 def read_ini():
     global PLAYERS, SAVES
     config = ConfigParser()
@@ -20,7 +22,7 @@ def read_ini():
     else:
         raise FileNotFoundError
 
-
+# опишите функцию: что она делает?
 def save_ini():
     config = ConfigParser()
     config['Scores'] = {name: ','.join(str(n) for n in score)
@@ -32,7 +34,7 @@ def save_ini():
     with open('data.ini', 'w', encoding='utf-8') as config_file:
         config.write(config_file)
 
-
+# опишите функцию: что она делает, какие и для чего у неё аргументы?
 def player_name(bot=''):
     global PLAYER
     if len(PLAYER) == 0:
