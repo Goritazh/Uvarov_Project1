@@ -1,8 +1,9 @@
 # импорты
 from players import *
-from help import show_help, show_message
+from help import COMMANDS, MESSAGES, show_help, show_message
 
 
+# вывод названия игры/приветствия
 show_message('Крестики-нолики')
 
 # чтение .ini файла
@@ -11,17 +12,29 @@ if read_ini():
 
 # запуск суперцикла
 while True:
-    # смотрите в файл с архитектурой
-    # что происходит, когда мы только заходим в суперцикл?
-    command = input('> ')
+    # запрос начала новой партии
+    command = input(MESSAGES[0].lower())
 
-    if command in ('quit', 'выход'):
+    # выход из программы
+    if command in COMMANDS['quit']:
         # обработка завершения работы приложения
         break
-    elif command in ('new', 'yes'):
+    # показать справку
+    elif command in COMMANDS['help']:
+        show_help()
+    # показать таблицу результатов
+    elif command in COMMANDS['scores']:
+        pass
+    # начало новой партии
+    elif command in COMMANDS['new']:
+        # есть ли текущий игрок
         if not PLAYER:
+            # запрос имени игрока
             player_name()
-            # мы узнали имя игрока: что делаем дальше?
-
-
-            # где-то тут должно быть начало новой партии
+        # запрос режима игры
+        if game_mode():
+            # продолжаем сохранённую партию
+            pass
+        else:
+            # начинаем новую партию
+            pass
