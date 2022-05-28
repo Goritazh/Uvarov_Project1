@@ -1,19 +1,28 @@
 # модуль работы с полем игры
 
+from shutil import get_terminal_size as gts
 import players
 import help
 
-FIELD = [[''] * 3 for _ in range(3)]
+F_SIZE = 3
+FIELD = [[''] * F_SIZE for _ in range(F_SIZE)]
 MARKERS = ('X', 'O')
 
 
-# отображение поля игры
-def show_field():
-    global FIELD
-    res = ""
-    for i in FIELD:
-        res += str(i) + "\n"
-    print(res)
+# вывод поля игры
+def show_field(*, right=False, center=False):
+    result = FIELD
+    if center:
+        result = [[f'{i},{j}' for j in range(F_SIZE)] for i in range(F_SIZE)]
+    mx = max([len(cell) for row in result for cell in row])
+    wd = mx * F_SIZE + F_SIZE * 3 - 1
+    margin = ' ' * ((gts()[0] - 1 - wd) // 2) if center else ' ' * (
+            gts()[0] - 1 - wd) if right else ' '
+    rows = [
+        margin + '|'.join([cell.center(mx + 2) for cell in row])
+        for row in result
+    ]
+    print('\n' + ('\n' + margin + '—' * wd + '\n').join(rows) + '\n')
 
 
 # проверка наличия сохранённой партии
